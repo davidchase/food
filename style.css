@@ -1,0 +1,36 @@
+body {
+	margin:0;
+	padding:0;
+}
+
+
+a:link{color:blue;}
+a:visited{color:green;}
+a:hover{color:red;}
+a:active{color:#000;}
+
+#wrapper {
+	width:960px;
+	margin:10px 10px;
+	
+}
+
+ul {
+	list-style-type: none;
+	padding: 0px;
+	margin: 10px 0;
+}
+
+
+li {
+	float:left;
+}
+
+#results {
+	display:block;
+	margin:15px 0;
+	height:845px;
+	overflow-y:hidden;
+	text-transform:lowercase;
+}
+
