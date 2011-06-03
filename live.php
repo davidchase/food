@@ -1,15 +1,19 @@
 <html>
 	<head>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-		<script type="text/javascript">
-			function getFoods(value) { 
+		
+		
+		<link rel="stylesheet" type="text/css" href="style.css" />
 	
+		<script type="text/javascript">
+		
+				function getFoods(value) { 
 				$.post("getFoods.php",{partialFoods:value},
 				function(data) { if(value.length == 0) {$("#results").html("");} else { $("#results").html(data);}}
 			 )};
-	    
+			
 		</script>
-		<link rel="stylesheet" type="text/css" href="style.css" />
+		
 	</head>
 		<body>
 			<div id="wrapper">
@@ -17,5 +21,7 @@
 				<br/>
 				<div id="results"></div>
 			</div>
+					
+					
 		</body>
 </html>

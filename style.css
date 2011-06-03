@@ -4,8 +4,8 @@ body {
 }
 
 
-a:link{color:blue;}
-a:visited{color:green;}
+a:link{color:#333;}
+a:visited{color:#333;}
 a:hover{color:red;}
 a:active{color:#000;}
 
@@ -27,10 +27,12 @@ li {
 }
 
 #results {
+	clear:both;
 	display:block;
 	margin:15px 0;
-	height:845px;
+	height:345px;
 	overflow-y:hidden;
-	text-transform:lowercase;
+	/*text-transform:lowercase;*/
+	width:500px;
 }
-
+ 
