@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-
-
 <html lang="en">
 <head>
 	
@@ -66,6 +64,20 @@
 		echo "<a href='add_food.php'> Add More &rarr; </a>";
 	}
 ?>
+
+
+<?php 
+	if(isset($_GET['add'])&&($_GET['breakfast'])) {
+	$add = $_GET['add'];
+	$breakfast = $_GET['breakfast'];
+	$query =  mysql_query("SELECT * FROM foods WHERE food_name='$add'") or die(mysql_error()); 
+	$query =  mysql_query("INSERT INTO breakfast (food_name,breakfast) VALUES('$add','$breakfast') ") or die(mysql_error());
+	
+	} else {
+		echo "Doesnt Work!";
+	}
+?>
+
 
 
 </body>
