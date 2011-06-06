@@ -35,4 +35,24 @@ li {
 	/*text-transform:lowercase;*/
 	width:500px;
 }
- 
+
+#form {
+	width:700px;
+	display:block;
+	margin:0 auto;
+}
+
+input[type="text"] {
+	margin-top:5px;
+	display:block;
+}
+
+#table {
+	margin:0 auto;
+	width:700px;
+}
+
+p.table {
+	width:100px;
+	margin:5px auto;
+}

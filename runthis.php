@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-
+<?php require_once('config.php'); ?>
 <html>
 <head><title></title>
 <script type="text/javascript">
@@ -43,6 +43,9 @@ xmlhttp.send();
 </form>
 <br />
 <div id="txtHint"><b>Food nutritional info be listed here.</b></div>
+
+
+
 
 </body>
 </html>

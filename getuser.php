@@ -1,13 +1,7 @@
 <?php
 $q=$_GET["q"];
 
-$con = mysql_connect('localhost', 'root', 'root');
-if (!$con)
-  {
-  die('Could not connect: ' . mysql_error());
-  }
-
-mysql_select_db("search", $con);
+require_once('config.php');
 
 $sql="SELECT * FROM foods WHERE food_type = '".$q."'";
 
@@ -24,6 +18,7 @@ echo "<table border='1'>
 <th>Cholesterol</th>
 <th>Protein</th>
 <th>Sugars</th>
+<th>Add This</th>
 </tr>";
 
 while($row = mysql_fetch_array($result))
@@ -38,12 +33,13 @@ while($row = mysql_fetch_array($result))
 		echo "<td>" . $row['food_cholestrol'] . "</td>";
 		echo "<td>" . $row['food_protein'] . "</td>";
 		echo "<td>" . $row['food_sugars'] . "</td>";
+		echo "<td>" ."<a href='http://digital-media-1.baileygp.local/~tstare/food/runthis.php?add=$row[1]'>". "+". "</a>"."</td>";
 		echo "</tr>";
   }
 echo "</table>";
 
 
-mysql_close($con);
+
 ?>
 
 
