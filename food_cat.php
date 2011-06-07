@@ -8,39 +8,56 @@
 	
 			function getFoods(value) { 
 			$.post("getFoods.php",{partialFoods:value},
-			function(data) { if(value.length == 0) {$("#results").html("");} else { $("#results").html(data);}}
+			function(data) { if(value.length == 0) {$("#results").html("");} else { $("#results").html(data);}} // clear if nothing there
 		 )};
+
 		
 	</script>
+	
+	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>Add Food</title>
 </head>
 <body>
 	
 		<div id="wrapper">
+			<div id="when">
+			
+				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET">
+						<select name="when" onchange="this.form.submit();">
+						<option value="">When Did You Eat?</option>
+						<option value="breakfast">Breakfast</option>
+						<option value="lunch">Lunch</option>
+						<option value="dinner">Dinner</option>
+						<option value="snacks">Snacks</option>
+						</select> <?php $timeofday = $_GET['when']; ?>
+				</form>
+			<br/>
+					
+			
+			
 			Live Food Search <input type="text" onkeyup="getFoods(this.value)" />
 			<br/>
 			<div id="results"></div>
 			
-			<?php date_default_timezone_set('UTC');
-				$tdate = date("D M j Y");
-				echo "Today is ". $tdate;
-
-			?>
-					<div id="when">
+			<?php date_default_timezone_set('UTC'); $tdate = date("D M j Y"); echo "Today is ". $tdate;	?>
 					
-						<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET" id="when">
-								<select name="c" onchange="this.form.submit()">
-								<option value="">When Did You Eat?</option>
-								<option value="breakfast">Breakfast</option>
-								<option value="lunch">Lunch</option>
-								<option value="dinner">Dinner</option>
-								<option value="snacks">Snacks</option>
-								</select>
-						</form>
 					
 					</div>
 		</div>
+		
+		
+		<?php 
+			if(isset($_GET['add'])) {
+			$add = $_GET['add'];
+			$serving = 1;
+			$query =  mysql_query("SELECT * FROM foods WHERE food_name='$add'") or die(mysql_error()); 
+			$row = mysql_fetch_array( $query );
+			$query =  mysql_query("INSERT INTO breakfast (food_name,food_serving,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars) VALUES('$add','$serving','$row[3]','$row[4]','$row[5]','$row[6]','$row[7]','$row[8]','$row[9]') ") or die(mysql_error());
+
+		} 
+		?>
+		
 		
 	<?php
 		if (!isset($_POST['submit'])) { 
@@ -82,17 +99,7 @@
 	}
 ?>
 
-<?php 
-	if(isset($_GET['add'])) {
-	$add = $_GET['add'];
-	//$tablename = $_GET['c'];
-	$serving = 1;
-	$query =  mysql_query("SELECT * FROM foods WHERE food_name='$add'") or die(mysql_error()); 
-	$row = mysql_fetch_array( $query );
-	$query =  mysql_query("INSERT INTO $tablename (food_name,food_serving,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars) VALUES('$add','$serving','$row[3]','$row[4]','$row[5]','$row[6]','$row[7]','$row[8]','$row[9]') ") or die(mysql_error());
 
-} 
-?>
 
 <p class="table">Breakfast Time </p>
 <?php $query = mysql_query("SELECT * FROM breakfast") or die(mysql_error());  
@@ -119,7 +126,7 @@
 		echo "<td>".$row['food_cholesterol']. "</td>";
 		echo "<td>".$row['food_protein']. "</td>";
 		echo "<td>".$row['food_sugars']. "</td>";
-		echo "<td><a href='http://digital-media-1.baileygp.local/~tstare/food/food_cat?remove=$row[0]'>" . "X" . "</a></td>";
+		echo "<td><a href='http://localhost:8888/food/food_cat.php?remove=$row[0]'>" . "X" . "</a></td>";
 		echo "</tr>";
 } 
 	while($row = mysql_fetch_array( $totals )) {
