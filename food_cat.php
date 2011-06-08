@@ -85,13 +85,13 @@
 		$protein = $_POST['food_protein'];
 		$lipids = $_POST['food_lipid'];
 		$carbs = $_POST['food_carbs'];
-		$cholestrol = $_POST['food_cholestrol'];
+		$cholesterol = $_POST['food_cholesterol'];
 		$sodium = $_POST['food_sodium'];
 		$sugar = $_POST['food_sugars'];
 		$type = $_POST['food_type'];
 
 		
-		$sql = mysql_query("INSERT INTO foods (food_name, food_serving, food_calories, food_protein, food_lipid, food_carbs,food_cholestrol,food_sodium,food_sugars,food_type) VALUES('$fname', '$serving', '$calories', '$protein', '$lipids', '$carbs','$cholestrol','$sodium','$sugar','$type' ) ") or die(mysql_error());  
+		$sql = mysql_query("INSERT INTO foods (food_name, food_serving, food_calories, food_protein, food_lipid, food_carbs,food_cholesterol,food_sodium,food_sugars,food_type) VALUES('$fname', '$serving', '$calories', '$protein', '$lipids', '$carbs','$cholesterol','$sodium','$sugar','$type' ) ") or die(mysql_error());  
 		
 		echo "Your " .$fname. " has been added to the database";
 		echo "<br/>";
@@ -126,7 +126,7 @@
 		echo "<td>".$row['food_cholesterol']. "</td>";
 		echo "<td>".$row['food_protein']. "</td>";
 		echo "<td>".$row['food_sugars']. "</td>";
-		echo "<td><a href='http://localhost:8888/food/food_cat.php?remove=$row[0]'>" . "X" . "</a></td>";
+		echo "<td><a href=".$_SERVER['PHP_SELF']."?remove=".$row[0].">Delete</a></td>"; 
 		echo "</tr>";
 } 
 	while($row = mysql_fetch_array( $totals )) {

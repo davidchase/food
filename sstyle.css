@@ -1,0 +1,102 @@
+body {
+	font-family:Arial;
+	font-size:14px;
+}
+
+a:link{color:#fff; text-decoration:none;}
+a:visited{color:#fff;}
+a:hover{color:#5CAFD2;}
+a:active{color:#fff;}
+
+#wrapper {
+	width:960px;
+	background:#fff;
+	color:#000;
+	margin:0 auto;
+}
+
+.topbar {
+	width:960px;
+	height:150px;
+	background:#ccc;
+	color:#000;
+	margin:40px auto;
+	padding:10px;
+}
+
+
+
+.search {
+	margin-left:60px;
+	border:0;
+	height:20px;
+}
+
+.submitForm {
+	border:0;
+	width:80px;
+	height:25px;
+	border-radius:4px;
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	behavior:pie.htc;
+	background:#F9F9F9;
+	color:#5CAFD2;
+}
+
+.submitForm:hover {
+	color:#5CAFD2;
+	background:#444;
+}
+
+.createFood {
+	border:0;
+	width:90px;
+	height:30px;
+	border-radius:7px;
+	-moz-border-radius:7px;
+	-webkit-border-radius:7px;
+	behavior:pie.htc;
+	float:right;
+	background:#F9F9F9;
+	color:#5CAFD2;
+
+}
+
+.createFood:hover {
+	color:#F9AB3C;
+	background:#444;
+}
+
+ul.nav {
+	margin:0px;
+	padding:1px;
+	list-style:none;
+}
+
+ul.nav li {
+	float:left;
+	display:block;
+	width:100px;
+	height:20px;
+	background:#333;
+	color:#fff;
+	padding:5px;
+}
+
+.when {
+	position:relative;
+	bottom:45px;
+}
+
+.results {
+	margin-left:150px;
+}
+
+#table {
+	margin:100px auto;
+}
+
+#table :link {
+	color:#000;
+}

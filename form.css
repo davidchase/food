@@ -1,0 +1,94 @@
+/*Add Page Style*/
+body{
+font-family:"Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
+font-size:12px;
+}
+p, h1, form, button{border:0; margin:0; padding:0;}
+.spacer{clear:both; height:1px;}
+
+.added {
+	bottom: 21px;
+    color: #6BAE08;
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+    width: 410px;
+}
+
+.error {
+    bottom: 21px;
+    color: #E31A3A;
+    margin: 0 auto;
+    padding-left: 18px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    width: 410px;
+	font-size:12px;
+}
+
+
+/*Form Styles Only*/
+.myform{
+margin:0 auto;
+width:400px;
+padding:14px;
+}
+
+
+#stylized{
+border:solid 2px #b7ddf2;
+background:#ebf4fb;
+height:520px;
+}
+#stylized h1 {
+font-size:14px;
+font-weight:bold;
+margin-bottom:8px;
+}
+#stylized p{
+font-size:11px;
+color:#666666;
+margin:0 auto;
+padding-bottom:10px;
+}
+#stylized label{
+display:block;
+font-weight:bold;
+text-align:right;
+width:140px;
+float:left;
+}
+#stylized .small{
+color:#666666;
+display:block;
+font-size:10px;
+font-weight:normal;
+text-align:right;
+width:140px;
+}
+#stylized input{
+float:left;
+font-size:12px;
+padding:4px 2px;
+border:solid 1px #aacfe4;
+width:200px;
+margin:2px 0 20px 10px;
+}
+#stylized input[type="submit"]{
+clear:both;
+margin-left:150px;
+width:205px;
+height:31px;
+background:#666666;3
+text-align:center;
+line-height:31px;
+color:#FFFFFF;
+font-size:12px;
+font-weight:bold;
+}
+
+#stylized input[type="submit"]:hover{
+	color:#5CAFD2;
+	background:#222;
+}
