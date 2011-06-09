@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<?php require_once('config.php'); ?>
-<?php include('functions.php') ?>
+
 <html>
 	<head>
 	<link rel="stylesheet" type="text/css" href="css/form.css" />

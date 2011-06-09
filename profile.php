@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<?php require_once('config.php') ?>
-<?php include('functions.php') ?>
 <html>
 	<head>
 		<title>Profile</title>
@@ -28,9 +26,16 @@
 							<input type="text" name="term" value="" id="search" class="search"> 
 							<input type="submit" name="submit" value="Submit" class="submitForm">
 						</form> 
-						<?php getFoods(); ?>
 						
-						<!-- <button class="createFood">Create Food</button> -->
+						<?php
+						include('inc/paginator.class.php');
+						require_once('inc/config.php');
+
+						if(isset($_POST['submit'])) {
+			
+					}
+						?>
+						
 					
 					
 					

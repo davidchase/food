@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<?php require_once('config.php') ?>
+	<?php require_once('inc/config.php') ?>
 	<link rel="stylesheet" type="text/css" href="style.css" />
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 	<script type="text/javascript">
