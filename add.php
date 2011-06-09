@@ -3,15 +3,29 @@
 <?php include('functions.php') ?>
 <html>
 	<head>
-	<link rel="stylesheet" type="text/css" href="form.css" />
+	<link rel="stylesheet" type="text/css" href="css/form.css" />
+	<link rel="stylesheet" type="text/css" href="css/jquery.fancybox-1.3.4.css" media="screen" />
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.fancybox-1.3.4.pack.js"></script>
+	<script type="text/javascript" src="js/jquery.mousewheel-3.0.4.pack.js"></script>
+
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 	<title>Add New Foods</title>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#addFood").fancybox({
+				'titlePosition'		: 'inside',
+				'transitionIn'		: 'elastic',
+				'transitionOut'		: 'elastic',
+				'showCloseButton'   : 'true'
+			});
+		});
+	</script>
 	</head>
 	<body>
-			<?php
-				//if (!isset($_POST['submit'])) { 
-			?>
-			
+			<a id="addFood" href="#formUp" title="">Add Food</a>
+		<div style="display: none;">
+		<div id="formUp" style="border:0;width:450px;height:560px;">
 			<div id="stylized" class="myform">
 					<h1>Add New Food</h1>
 					<p>This will updated the foods database</p>
@@ -30,6 +44,9 @@
 					<input type="Submit" name="submit" value="Submit" id="submit">
 				
 					</form>
+					<div class="error"></div>
+			</div>
+			</div>
 			</div>
 					<?php addFoods(); ?>
 	</body>
