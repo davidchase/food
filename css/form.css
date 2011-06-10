@@ -59,6 +59,51 @@ p, h1, form, button{border:0; margin:0; padding:0;}
 margin:0 auto;
 width:400px;
 padding:14px;
+height:500px;
+background:#ebf4fb;
+}
+.formHidden {
+	display:none;
+}
+#breakfast, #lunch, #dinner, #snacks {
+	background:#ebf4fb;
+	display:block;
+	padding:20px;
+	width:200px;
+	height:80px;
+	font-size:15px;
+	text-align:center;
+	font-weight:bold;
+	border-radius:4px;
+	-webkit-border-radius:4px;
+	-moz-border-radius:4px;
+	color:#333;
+}
+
+.quickSubmit {
+	border:0;
+	margin:5px auto;
+	background:#666666;
+	text-align:center;
+	color:#fff;
+	height:25px;
+	width:100px;
+	cursor:pointer;
+	line-height:20px;
+
+}
+.quickSubmit:hover {
+	background:#111;
+	color:#b7ddf2;
+
+}
+
+.quick_calories {
+	border:0;
+	background:#333;
+	height:25px;
+	width:200px;
+	color:#fff;
 }
 
 

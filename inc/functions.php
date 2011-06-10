@@ -26,8 +26,9 @@ function getFoods(){
 		
 		$term = $_POST['term'];
 		$when = $_POST['when'];
+		$servings = $_POST['servings'];
 		
-		if(!empty($_REQUEST['term']) && ($when != "When Did You Eat?")  ) {
+		if(!empty($_REQUEST['term']) && ($when != "When Did You Eat?")  && ($servings != "How Many Servings?")   ) {
 		 include('paginator.class.php');
 
 		 $query = "SELECT COUNT(*) FROM foods WHERE food_name LIKE '%$term%' ";
@@ -51,7 +52,7 @@ function getFoods(){
 		 {
 		 	echo "<tr onmouseover=\"hilite(this)\" onmouseout=\"lowlite(this)\"><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td><td>$row[3]</td><td>$row[4]</td><td>$row[5]</td>
 																				<td>$row[6]</td><td>$row[7]</td><td>$row[8]</td><td>$row[9]</td>
-																				<td><a href=".$_SERVER['PHP_SELF']."?id=".$row['0']."&when=$when".">Add Me</a></td></tr>\n";
+																				<td><a href=".$_SERVER['PHP_SELF']."?id=".$row['0']."&when=$when"."&s=$servings".">Add Me</a></td></tr>\n";
 		 }
 		 echo "</table>";
 
@@ -62,9 +63,11 @@ function getFoods(){
 			if(isset($_GET['id'])) {
 			$add = $_GET['id'];
 			$when = $_GET['when'];
+			$s = $_GET['s'];
 			$query =  mysql_query("SELECT * FROM foods WHERE food_ID ='$add'") or die(mysql_error()); 
 			$row = mysql_fetch_array( $query );
-			$query =  mysql_query("INSERT INTO $when (id,food_name,food_serving,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars) VALUES('$add','$row[1]','$row[2]','$row[3]','$row[4]','$row[5]','$row[6]','$row[7]','$row[8]','$row[9]') ") or die(mysql_error());
+			$query = mysql_query("INSERT INTO $when (id,food_name,food_serving,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars) 
+								  VALUES('$add','$row[1]','$row[2]','$row[3]'*'$s','$row[4]'*'$s','$row[5]'*'$s','$row[6]'*'$s','$row[7]'*'$s','$row[8]'*'$s','$row[9]'*'$s') ") or die(mysql_error());
 		}
 					
 }
@@ -78,16 +81,24 @@ function getFoods(){
  **/
 
 function breakfast(){
-	
+			
+					if(isset($_POST['quickAdd'])) {
+						$quickCals = $_POST['breakfast_calories'];
+						$results =  mysql_query("INSERT INTO breakfast (food_name,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars) VALUES ('Quick Calories','$quickCals','0','0','0','0','0','0')");
+					}
+			
+			
 			if(isset($_GET['remove'])) {
 					 $remove = $_GET['remove'];
 					if($_GET['when'] == 'breakfast') {
 					  $query =  mysql_query("DELETE FROM breakfast WHERE id='$remove'");
 					}
 				}
-			
-			$query = mysql_query("SELECT * FROM breakfast") or die(mysql_error());  
-		  $totals = mysql_query("SELECT SUM(food_calories) AS CalorieTotal,SUM(food_carbs) AS CarbTotal, SUM(food_lipid) AS FatTotal,SUM(food_sodium) AS SodiumTotal,SUM(food_cholesterol) AS CholesterolTotal,SUM(food_protein) AS ProteinTotal,SUM(food_sugars) AS SugarTotal FROM breakfast") or die(mysql_error());  
+
+			$query = mysql_query("SELECT  * FROM breakfast") or die(mysql_error());  
+		  	$totals = mysql_query("SELECT SUM(food_calories) AS CalorieTotal,SUM(food_carbs) AS CarbTotal, SUM(food_lipid) AS FatTotal,SUM(food_sodium) 
+					  AS SodiumTotal,SUM(food_cholesterol) AS CholesterolTotal,SUM(food_protein) AS ProteinTotal,SUM(food_sugars) AS SugarTotal FROM breakfast") or die(mysql_error());  
+							
 		echo "<table border='1' id='table'>";
 		echo "<tr> <th>Name</th> 
 				   <th>Calories</th>
@@ -98,22 +109,24 @@ function breakfast(){
 					<th>Protein</th>
 					<th>Sugars</th>
 					<th>Delete</th></tr>";
-		while($row = mysql_fetch_array( $query )) {
-			echo "<tr><td>"; 
-			echo $row['food_name'];
-			echo "</td><td>"; 
-			echo $row['food_calories'];
-			echo "</td>"; 
+		while($row = mysql_fetch_array($query)) {
+			echo "<tr>";
+			echo "<td>".$row['food_name']. "</td>";
+			echo "<td>".$row['food_calories']. "</td>";
 			echo "<td>".$row['food_carbs']. "</td>";
 			echo "<td>".$row['food_lipid']. "</td>";
 			echo "<td>".$row['food_sodium']. "</td>";
 			echo "<td>".$row['food_cholesterol']. "</td>";
 			echo "<td>".$row['food_protein']. "</td>";
 			echo "<td>".$row['food_sugars']. "</td>";
-			echo "<td><a href=".$_SERVER['PHP_SELF']."?remove=".$row[0]."&when=breakfast".">Delete</a></td>"; 
-			echo "</tr>";
+			echo "<td><a href=".$_SERVER['PHP_SELF']."?remove=".$row['id']."&when=breakfast".">Delete</a></td>"; 
+			echo "</tr>";	
 	} 
+	
+		
+		
 		while($row = mysql_fetch_array( $totals )) {
+			echo "<tr>";
 			echo "<td><strong>Totals:</strong></td>";
 			echo "<td>".$row['CalorieTotal']. "</td>";
 			echo "<td>".$row['CarbTotal']. "</td>";
@@ -122,14 +135,19 @@ function breakfast(){
 			echo "<td>".$row['CholesterolTotal']. "</td>";
 			echo "<td>".$row['ProteinTotal']. "</td>";
 			echo "<td>".$row['SugarTotal']. "</td>";
-			
-			
+			echo "</tr>";
+		
 		}
 		echo "</table>"; 
-
+		
 	
 }
 function lunch(){
+	
+			if(isset($_POST['lunch'])) {
+				$quickCals = $_POST['lunch_calories'];
+				$results =  mysql_query("INSERT INTO lunch (food_name,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars) VALUES ('Quick Calories','$quickCals','0','0','0','0','0','0')");
+			}
 	
 			if(isset($_GET['remove'])) {
 					 $remove = $_GET['remove'];
@@ -181,6 +199,11 @@ function lunch(){
 	
 }
 function dinner(){
+		
+			if(isset($_POST['dinner'])) {
+				$quickCals = $_POST['dinner_calories'];
+				$results =  mysql_query("INSERT INTO dinner (food_name,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars) VALUES ('Quick Calories','$quickCals','0','0','0','0','0','0')");
+			}
 	
 			if(isset($_GET['remove'])) {
 					 $remove = $_GET['remove'];
@@ -232,7 +255,11 @@ function dinner(){
 	
 }
 function snack(){
-	
+			if(isset($_POST['snacks'])) {
+				$quickCals = $_POST['snacks_calories'];
+				$results =  mysql_query("INSERT INTO snacks (food_name,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars) VALUES ('Quick Calories','$quickCals','0','0','0','0','0','0')");
+			}
+			
 			if(isset($_GET['remove'])) {
 					 $remove = $_GET['remove'];
 					if($_GET['when'] == 'snack') {
@@ -315,13 +342,18 @@ function foodtotals(){
 	echo "</table>";
 	$allowed = 2000;
 	$left = $allowed-$consumed;
-	if(empty($consumed)) {
+	$over = $consumed-$allowed;
+	
+	if($consumed > $allowed) {
+		echo 'You are '.$over. ' calories over the suggested daily amount. ';
+	} elseif(empty($consumed)){
+		
 		echo "<br/>";
-	   echo 'Your consumed a total of '.'0'.' calories '. ' today! '.'<br/>'.'You can eat a total of '.$left.' calories for the day. ';
+	   	echo 'Your consumed a total of '.'0'.' calories '. ' today! '.'<br/>'.'You can eat a total of '.$left.' calories for the day. ';
 	} else {
-
-	echo "<br/>";
-	echo 'Your consumed a total of '.$consumed. ' calories '. 'today! '.'<br/>'.'You can eat a total of '.$left.' calories for the day. ';
+		echo "<br/>";
+		echo 'Your consumed a total of '.$consumed. ' calories '. 'today! '.'<br/>'.'You can eat a total of '.$left.' calories for the day. ';
+		
 	}
 }
 
@@ -334,7 +366,7 @@ function foodtotals(){
  * 
  **/
 function addFoods(){
-		if (isset($_POST['submit'])) { 
+		if (isset($_POST['addFood'])) { 
 		$serving = 1;
 		$fname = empty($_POST['food_name']) ? die ("<div class='error'>"."ERROR: Please Enter a name value"."</div>") : mysql_real_escape_string($_POST['food_name']);
 		$calories = !is_numeric($_POST['food_calories']) ? die ("<div class='error'>"."ERROR: Please Enter calorie value"."</div>") : mysql_real_escape_string($_POST['food_calories']);

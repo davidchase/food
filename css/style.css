@@ -1,3 +1,13 @@
+body {
+	
+}
+
+a:link{color:#333;}
+a:visited{color:#333;}
+a:hover{color:red;}
+a:active{color:#000;}
+
+/* Table (breakfast,lunch,etc) Coloring Below */
 .paginate {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: .7em;
@@ -54,4 +64,10 @@ td {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: .7em;
 	border: 1px solid #DDD;
+}
+
+/* End of Table Coloring */
+
+.quickAdd {
+
 }
