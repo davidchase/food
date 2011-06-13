@@ -411,6 +411,106 @@ function addFoods(){
 }
 
 
+/**
+*
+* Start Exercise Here
+* Pulls from table exercise
+*
+*
+**/
 
+function exercise(){
+	
+		$form_query = "SELECT DISTINCT exercise FROM exercises ORDER BY id ASC";
+	 	$form_result = mysql_query($form_query) or die(mysql_error());
+		
+		$search = $_POST['search'];
+		$minutes = $_POST['how_long'];
+		
+		if(!empty($_REQUEST['search']) && !empty($_REQUEST['how_long']) ) {
+		 include('paginator.class.php');
 
+		 $query = "SELECT COUNT(*) FROM exercises WHERE exercise LIKE '%$search%' ";
+		 $result = mysql_query($query) or die(mysql_error());
+		 $num_rows = mysql_fetch_row($result);
+
+		 $pages = new Paginator;
+		 $pages->items_total = $num_rows[0];
+		 $pages->mid_range = 9; // Number of pages to display. Must be odd and > 3
+		 $pages->paginate();
+
+		 echo $pages->display_pages();
+		 echo "<span class=\"\">".$pages->display_jump_menu().$pages->display_items_per_page()."</span>";
+
+		 $query = "SELECT * FROM exercises WHERE exercise LIKE '%$search%' ORDER BY id ASC $pages->limit";
+		 $result = mysql_query($query) or die(mysql_error());
+
+		 echo "<table>";
+		 echo "<tr><th>Id</th><th>Fitness</th><th>Calories Burned</th><th>Add</th></tr>";
+		 while($row = mysql_fetch_row($result))
+		 {
+		 	echo "<tr onmouseover=\"hilite(this)\" onmouseout=\"lowlite(this)\"><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td>
+																				<td><a href=".$_SERVER['PHP_SELF']."?fitid=".$row['0']."&m=$minutes".">Add Me</a></td></tr>\n";
+		 }
+		 echo "</table>";
+
+		 echo $pages->display_pages();
+		 echo "<p class=\"paginate\">Page: $pages->current_page of $pages->num_pages</p>\n";
+		 }
+		
+			if(isset($_GET['fitid'])) {
+			$add = $_GET['fitid'];
+			$m = $_GET['m']; //minutes
+			$h = 60; // hours to minutes
+			$query =  mysql_query("SELECT * FROM exercises WHERE id ='$add'") or die(mysql_error()); 
+			$row = mysql_fetch_array( $query );
+			$total = $row[2]/$h*$m; //total calories based on minutes exercised
+			$rounded = ceil($total); //total rounded up
+			$query = mysql_query("INSERT INTO fitness (eid,fitness,calories,minutes,miles,notes) 
+								  VALUES('$add','$row[1]','$rounded','$m','$row[4]','$notes') ") or die(mysql_error());
+		}
+	
+}
+
+function dispFitness(){
+			if(isset($_GET['remove'])) {
+					 $remove = $_GET['remove'];
+				     $query =  mysql_query("DELETE FROM fitness WHERE id='$remove'");
+					
+				}
+		
+		  $query = mysql_query("SELECT * FROM fitness") or die(mysql_error());  
+		  $totals = mysql_query("SELECT SUM(calories) AS CalorieBurned,SUM(minutes) AS MinuteTotal, SUM(miles) AS MileTotal FROM fitness") or die(mysql_error());  
+		
+		echo "Fitness";
+		echo "<table border='1' id='table'>";
+		echo "<tr>";
+		echo "<th>Fitness</th> 
+			 <th>Calories Burned</th>
+		     <th>Minutes</th>
+			 <th>Miles</th>
+			 <th>Delete</th>";
+		echo "</tr>";
+		while($row = mysql_fetch_array( $query )) {
+			echo "<tr><td>"; 
+			echo $row[2];
+			echo "</td><td>"; 
+			echo $row[3];
+			echo "</td>"; 
+			echo "<td>".$row[4]. "</td>";
+			echo "<td>".$row[5]. "</td>";
+			echo "<td><a href=".$_SERVER['PHP_SELF']."?remove=".$row[0].">X</a></td>"; 
+			echo "</tr>";
+	} 
+		while($row = mysql_fetch_array( $totals )) {
+			echo "<td><strong>Totals:</strong></td>";
+			echo "<td>".$row['CalorieBurned']. "</td>";
+			echo "<td>".$row['MinuteTotal']. "</td>";
+			echo "<td>".$row['MileTotal']. "</td>";
+		}
+		echo "</table>"; 
+	
+	
+	
+}
 
