@@ -18,7 +18,7 @@
 						<option value="dinner">Dinner</option>
 						<option value="snacks">Snacks</option>
 					</select>
-					<input type="text" name="term" value="" id="search" class="search">
+					<input type="text" name="term" value="Search For Foods" id="search" class="search">
 					<select name = "servings">
 						<option selected= "">How Many Servings?</option>
 						<option value="1">1</option>

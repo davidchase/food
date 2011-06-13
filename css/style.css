@@ -160,4 +160,48 @@ td {
 
 }
 
+.exercise {
+	clear:both;
+	border:solid 2px #b7ddf2;
+	background:#ebf4fb;
+}
+
+#fitness {
+}
+#fitness  p{
+color:#666666;
+margin:0 auto;
+padding-bottom:5px;
+}
+#fitness label{
+display:block;
+font-weight:bold;
+text-align:right;
+width:140px;
+float:left;
+}
+
+#fitness input{
+font-size:12px;
+padding:4px 2px;
+border:solid 1px #aacfe4;
+width:200px;
+margin:2px 0 20px 10px;
+}
+#fitness  input[type="submit"]{
+clear:both;
+margin-left:150px;
+width:205px;
+height:31px;
+background:#666666;3
+text-align:center;
+line-height:31px;
+color:#FFFFFF;
+font-size:12px;
+font-weight:bold;
+}
+#fitness  input[type="submit"]:hover{
+	color:#5CAFD2;
+	background:#222;
+}
 
