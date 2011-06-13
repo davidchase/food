@@ -41,16 +41,39 @@ p, h1, form, button{border:0; margin:0; padding:0;}
 	-webkit-border-radius: 4px;
 	font-family:"Lucida Grande", "Lucida Sans Unicode", Verdana, Arial, Helvetica, sans-serif;
 	font-size:12px;
+	float: right;
+	margin-right: 15px;
+	
+	
+
 }
 
 #addFood:link {
 	text-decoration: none;
+	margin-top: 5px;
 }
 
 #addFood:hover {
 	background: #111;
 	color: #fff;
 	border:solid 2px #fff;
+}
+
+
+.submitForm {
+	border:solid 2px #b7ddf2;
+	padding: 5px;
+	margin-left: 230px;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	background:#3B7B9D;
+	color:#fff;
+	cursor: pointer;
+	font-weight: bold;
+	font-size: 12px;
+	width:82px;
+
 }
 
 
@@ -110,7 +133,7 @@ background:#ebf4fb;
 #stylized{
 border:solid 2px #b7ddf2;
 background:#ebf4fb;
-height:520px;
+height:535px;
 }
 #stylized h1 {
 font-size:14px;
@@ -162,4 +185,13 @@ font-weight:bold;
 #stylized input[type="submit"]:hover{
 	color:#5CAFD2;
 	background:#222;
+}
+
+#stylized select {
+	background:none repeat scroll 0 0 #FFFFFF;
+	border:1px inset #333333;
+	color:#000000;
+	margin-bottom:14px;
+	margin-left:9px;
+	width:208px;
 }

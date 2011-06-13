@@ -7,6 +7,94 @@ a:visited{color:#333;}
 a:hover{color:red;}
 a:active{color:#000;}
 
+#wrapper {
+	width: 965px;
+	margin: 0 auto;
+}
+
+#appHeader {
+	width:920px;
+	padding: 20px;
+	min-height:100px;
+	background:#ebf4fb;
+	border:solid 2px #b7ddf2;
+}
+
+#interact {
+	margin-top: 10px;
+}
+
+#meal {
+	
+	background:#ebf4fb;
+	border:solid 2px #b7ddf2;
+	margin:10px auto;
+	padding: 10px;
+	position: relative;
+}
+
+.quickAdd {
+	
+	margin-left: 430px;
+}
+
+.consume {
+	clear: both;
+	display: block;
+	width:70px;
+	height: 60px;
+	background:#3B7B9D;
+	text-align: center;
+	padding: 10px;
+	position: relative;
+	float: right;
+	bottom:440px;
+	right: 50px;
+	color: #fff;
+}
+.left {
+	clear: both;
+	display: block;
+	width:70px;
+	height: 60px;
+	background:#3B7B9D;
+	text-align: center;
+	padding: 10px;
+	position: relative;
+	float: right;
+	right: 50px;
+	bottom:410px;
+	color: #fff;
+
+}
+
+.over {
+	clear: both;
+	display: block;
+	width:70px;
+	height: 60px;
+	background:#3B7B9D;
+	text-align: center;
+	padding: 10px;
+	position: relative;
+	float: right;
+	right: 50px;
+	color: #fff;
+	bottom:110px;
+
+}
+
+.edit {
+	display: block;
+	width: 400px;
+	height: 200px;
+	border:solid 2px #b7ddf2;
+	background:#ebf4fb;
+	color:#fff;
+	padding:20px;
+
+}
+
 /* Table (breakfast,lunch,etc) Coloring Below */
 .paginate {
 	font-family: Arial, Helvetica, sans-serif;

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+<html>
  <head>
+ <?php include_once('inc/functions.php'); ?> 
  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
  <title>Main Page</title>
  	<link rel="stylesheet" type="text/css" href="css/style.css" />
@@ -23,15 +25,23 @@
 					'transitionIn'		: 'elastic',
 					'transitionOut'		: 'elastic'
 				});
+				
+				$("#edit").fancybox({
+					 'padding'          : 0,
+       				 'autoScale'     	: false,
+        			 'transitionIn'		: 'elastic',
+				     'transitionOut'	: 'elastic'
+				});
 		});
 
 	</script>
  </head>
  
  <body> 
-<?php include_once('inc/functions.php'); ?> 
-<h1><a href="<?php echo $_SERVER['PHP_SELF']; ?>">Home</a></h1>
-		<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+<div id="wrapper">
+	<div id="appHeader">
+	Todays Date: <?php echo date("m/d/y"); ?>
+		<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" id="interact">
 					<select name = "libre">
 						<option selected= "">When Did You Libre?</option>
 						<option value="breakfast">Breakfast</option>
@@ -39,15 +49,7 @@
 						<option value="dinner">Dinner</option>
 						<option value="snacks">Snacks</option>
 					</select>
-						<select name = "when">
-							<option selected= "">When Did You Eat?</option>
-							<option value="breakfast">Breakfast</option>
-							<option value="lunch">Lunch</option>
-							<option value="dinner">Dinner</option>
-							<option value="snacks">Snacks</option>
-						</select>
-					<input type="text" name="term" value="" id="search" class="search"> 
-					<input type="submit" name="submit" value="Submit" class="submitForm">
+					<input type="text" name="term" value="" id="search" class="search">
 					<select name = "servings">
 						<option selected= "">How Many Servings?</option>
 						<option value="1">1</option>
@@ -57,26 +59,53 @@
 						<option value="5">5</option>
 						<option value="6">6</option>
 					</select>
+						<select name = "when">
+							<option selected= "">When Did You Eat?</option>
+							<option value="breakfast">Breakfast</option>
+							<option value="lunch">Lunch</option>
+							<option value="dinner">Dinner</option>
+							<option value="snacks">Snacks</option>
+						</select>
+					
+					
+					
+					 
+					<input type="submit" name="submit" value="Submit" class="submitForm">
 		</form>
-		<p><?php getFoods();?></p>
+		<?php getFoods();?>
+		<?php addFoods(); ?>
+		<a id="addFood" href="#formUp" title="">Add Food</a>
+	</div>
 		
-		<p><h2>Breakfast</h2></p><a class="quickAdd" href="#breakfast">Quick Add</a>
-		<?php breakfast();?>
+		<div id="meal">
 		
-		<p><h2>Lunch</h2></p><a class="quickAdd" href="#lunch">Quick Add</a>
-		<?php lunch();?>
+			<div class="breakfast">
+		<?php breakfast();?><a class="quickAdd" href="#breakfast">Quick Add</a>
 		
-		<p><h2>Dinner</h2></p><a class="quickAdd" href="#dinner">Quick Add</a>
-		<?php dinner();?>
+			</div>
+			
+			<div class="lunch">
+		<?php lunch();?><a class="quickAdd" href="#lunch">Quick Add</a>
 		
-		<p><h2>Snacks</h2></p><a class="quickAdd" href="#snacks">Quick Add</a>
-		<?php snack();?>
+			</div>
 		
-		<p><h2>Totals</h2></p>
+			<div class="dinner">
+		<?php dinner();?><a class="quickAdd" href="#dinner">Quick Add</a>
+		
+			</div>
+		
+			<div class="snacks">
+		<?php snack();?><a class="quickAdd" href="#snacks">Quick Add</a>
+		
+			</div>
+		
+			<div class="totalmeal">
 		<?php foodtotals();?>
 		
-		<p><h2>Add New Food</h2></p>
-		<a id="addFood" href="#formUp" title="">Add Food</a>
+			</div>
+		</div>
+		
+		
 
 		<div class="formHidden">
 			<div id="formUp">
@@ -95,6 +124,14 @@
 					<label for="food_sodium">Sodium<span class="small">mg</span></label> <input type="text" name="food_sodium" value="" id="food_sodium">
 					<label for="food_sugars">Sugar<span class="small">g</span></label> <input type="text" name="food_sugars" value="" id="food_sugars">
 					<label for="food_type">Food Type<span class="small">ie: Bread,Fruit</span></label> <input type="text" name="food_type" value="" id="food_type">
+					<label for="addTo">Optional<span class="small">ie: Breakfast</span></label>
+					<select name = "addTo">
+							<option selected= "">Add to Meal Time</option>
+							<option value="breakfast">Breakfast</option>
+							<option value="lunch">Lunch</option>
+							<option value="dinner">Dinner</option>
+							<option value="snacks">Snacks</option>
+						</select>
 					<input type="Submit" name="addFood" value="Submit" id="submit">
 				
 					</form>
@@ -102,7 +139,7 @@
 			</div>
 		</div>
 
-		<?php addFoods(); ?>
+		
 		
 		<div class="formHidden">
 			<div id="breakfast">
@@ -134,6 +171,6 @@
 						</form>
 					</div>
 		</div>
-	
+</div>
  </body>
  </html>

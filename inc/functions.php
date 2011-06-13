@@ -98,7 +98,7 @@ function breakfast(){
 			$query = mysql_query("SELECT  * FROM breakfast") or die(mysql_error());  
 		  	$totals = mysql_query("SELECT SUM(food_calories) AS CalorieTotal,SUM(food_carbs) AS CarbTotal, SUM(food_lipid) AS FatTotal,SUM(food_sodium) 
 					  AS SodiumTotal,SUM(food_cholesterol) AS CholesterolTotal,SUM(food_protein) AS ProteinTotal,SUM(food_sugars) AS SugarTotal FROM breakfast") or die(mysql_error());  
-							
+		echo "Breakfast";	
 		echo "<table border='1' id='table'>";
 		echo "<tr> <th>Name</th> 
 				   <th>Calories</th>
@@ -111,7 +111,7 @@ function breakfast(){
 					<th>Delete</th></tr>";
 		while($row = mysql_fetch_array($query)) {
 			echo "<tr>";
-			echo "<td>".$row['food_name']. "</td>";
+			echo "<td>".'<a id="edit" href="edit.php">'.$row['food_name'].'</a>'. "</td>";
 			echo "<td>".$row['food_calories']. "</td>";
 			echo "<td>".$row['food_carbs']. "</td>";
 			echo "<td>".$row['food_lipid']. "</td>";
@@ -119,7 +119,7 @@ function breakfast(){
 			echo "<td>".$row['food_cholesterol']. "</td>";
 			echo "<td>".$row['food_protein']. "</td>";
 			echo "<td>".$row['food_sugars']. "</td>";
-			echo "<td><a href=".$_SERVER['PHP_SELF']."?remove=".$row['id']."&when=breakfast".">Delete</a></td>"; 
+			echo "<td><a href=".$_SERVER['PHP_SELF']."?remove=".$row['id']."&when=breakfast".">X</a></td>"; 
 			echo "</tr>";	
 	} 
 	
@@ -158,6 +158,8 @@ function lunch(){
 			
 		  $query = mysql_query("SELECT * FROM lunch") or die(mysql_error());  
 		  $totals = mysql_query("SELECT SUM(food_calories) AS CalorieTotal,SUM(food_carbs) AS CarbTotal, SUM(food_lipid) AS FatTotal,SUM(food_sodium) AS SodiumTotal,SUM(food_cholesterol) AS CholesterolTotal,SUM(food_protein) AS ProteinTotal,SUM(food_sugars) AS SugarTotal FROM lunch") or die(mysql_error());  
+		
+		echo "Lunch";
 		echo "<table border='1' id='table'>";
 		echo "<tr> <th>Name</th> 
 				   <th>Calories</th>
@@ -180,7 +182,7 @@ function lunch(){
 			echo "<td>".$row['food_cholesterol']. "</td>";
 			echo "<td>".$row['food_protein']. "</td>";
 			echo "<td>".$row['food_sugars']. "</td>";
-			echo "<td><a href=".$_SERVER['PHP_SELF']."?remove=".$row[0]."&when=lunch".">Delete</a></td>"; 
+			echo "<td><a href=".$_SERVER['PHP_SELF']."?remove=".$row[0]."&when=lunch".">X</a></td>"; 
 			echo "</tr>";
 	} 
 		while($row = mysql_fetch_array( $totals )) {
@@ -214,6 +216,8 @@ function dinner(){
 			
 			$query = mysql_query("SELECT * FROM dinner") or die(mysql_error());  
 		  $totals = mysql_query("SELECT SUM(food_calories) AS CalorieTotal,SUM(food_carbs) AS CarbTotal, SUM(food_lipid) AS FatTotal,SUM(food_sodium) AS SodiumTotal,SUM(food_cholesterol) AS CholesterolTotal,SUM(food_protein) AS ProteinTotal,SUM(food_sugars) AS SugarTotal FROM dinner") or die(mysql_error());  
+		
+		echo "Dinner";
 		echo "<table border='1' id='table'>";
 		echo "<tr> <th>Name</th> 
 				   <th>Calories</th>
@@ -236,7 +240,7 @@ function dinner(){
 			echo "<td>".$row['food_cholesterol']. "</td>";
 			echo "<td>".$row['food_protein']. "</td>";
 			echo "<td>".$row['food_sugars']. "</td>";
-			echo "<td><a href=".$_SERVER['PHP_SELF']."?remove=".$row[0]."&when=dinner".">Delete</a></td>"; 
+			echo "<td><a href=".$_SERVER['PHP_SELF']."?remove=".$row[0]."&when=dinner".">X</a></td>"; 
 			echo "</tr>";
 	} 
 		while($row = mysql_fetch_array( $totals )) {
@@ -269,6 +273,8 @@ function snack(){
 			
 		  $query = mysql_query("SELECT * FROM snacks") or die(mysql_error());  
 		  $totals = mysql_query("SELECT SUM(food_calories) AS CalorieTotal,SUM(food_carbs) AS CarbTotal, SUM(food_lipid) AS FatTotal,SUM(food_sodium) AS SodiumTotal,SUM(food_cholesterol) AS CholesterolTotal,SUM(food_protein) AS ProteinTotal,SUM(food_sugars) AS SugarTotal FROM snacks") or die(mysql_error());  
+		
+		echo "Snacks";
 		echo "<table border='1' id='table'>";
 		echo "<tr> <th>Name</th> 
 				   <th>Calories</th>
@@ -291,7 +297,7 @@ function snack(){
 			echo "<td>".$row['food_cholesterol']. "</td>";
 			echo "<td>".$row['food_protein']. "</td>";
 			echo "<td>".$row['food_sugars']. "</td>";
-			echo "<td><a href=".$_SERVER['PHP_SELF']."?remove=".$row[0]."&when=snack".">Delete</a></td>"; 
+			echo "<td><a href=".$_SERVER['PHP_SELF']."?remove=".$row[0]."&when=snack".">X</a></td>"; 
 			echo "</tr>";
 	} 
 		while($row = mysql_fetch_array( $totals )) {
@@ -316,16 +322,16 @@ function foodtotals(){
 							UNION ALL(SELECT food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars FROM lunch)
 							UNION ALL(SELECT food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars FROM dinner)
 							UNION ALL(SELECT food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars FROM snacks)) AS TOTAL ") or die(mysql_error());
-		  
+	echo "Daily Totals";
 	echo "<table border='1' id='table'>";
 	echo "<tr> <th></th> 
-			   <th>Total Calories</th>
-			   <th>Total Carbs</th>
-				<th>Total Fats</th>
-				<th>Total Sodium</th>
-				<th>Total Cholesterol</th>
-				<th>Total Protein</th>
-				<th>Total Sugars</th></tr>";
+			   <th>Calories</th>
+			   <th>Carbs</th>
+				<th>Fats</th>
+				<th>Sodium</th>
+				<th>Cholesterol</th>
+				<th>Protein</th>
+				<th>Sugars</th></tr>";
 	
 	while($row = mysql_fetch_array($foodtotals)) {
 			echo "<td><strong>Daily Totals:</strong></td>";
@@ -345,14 +351,16 @@ function foodtotals(){
 	$over = $consumed-$allowed;
 	
 	if($consumed > $allowed) {
-		echo 'You are '.$over. ' calories over the suggested daily amount. ';
+		echo '<div class="over">'.$over.'<br/>'. ' Over '. '</div> ';
+		echo '<div class="consume">'.$consumed. '<br/>'. 'Calories Consumed'.'</div>'.'<br/>'.'<div class="left">'.$left.' Calories Remaining </div>';
+		
 	} elseif(empty($consumed)){
 		
 		echo "<br/>";
-	   	echo 'Your consumed a total of '.'0'.' calories '. ' today! '.'<br/>'.'You can eat a total of '.$left.' calories for the day. ';
+	   	echo '<div class="consume">'.'0'. '<br/>'. 'Calories Consumed'.'</div>'.'<br/>'.'<div class="left">'.$left.' Calories Remaining </div>';
 	} else {
 		echo "<br/>";
-		echo 'Your consumed a total of '.$consumed. ' calories '. 'today! '.'<br/>'.'You can eat a total of '.$left.' calories for the day. ';
+		echo '<div class="consume">'.$consumed. '<br/>'. 'Calories Consumed'.'</div>'.'<br/>'.'<div class="left">'.$left.' Calories Remaining </div>';
 		
 	}
 }
@@ -366,6 +374,9 @@ function foodtotals(){
  * 
  **/
 function addFoods(){
+
+		
+		
 		if (isset($_POST['addFood'])) { 
 		$serving = 1;
 		$fname = empty($_POST['food_name']) ? die ("<div class='error'>"."ERROR: Please Enter a name value"."</div>") : mysql_real_escape_string($_POST['food_name']);
@@ -378,12 +389,24 @@ function addFoods(){
 		$sugar = !is_numeric($_POST['food_sugars']) ? die ("<div class='error'>"."ERROR: Please Enter sugar value"."</div>") : mysql_real_escape_string($_POST['food_sugars']);
 		$type = empty($_POST['food_type']) ? die ("<div class='error'>"."ERROR: Please Enter a food type"."</div>") : mysql_real_escape_string($_POST['food_type']);
 
-
+		$addTo = $_POST['addTo'];
+		
+		if($_POST['addTo'] != 'Add to Meal Time'){
+		$results = mysql_query("INSERT INTO $addTo (food_name, food_serving, food_calories, food_protein, food_lipid, food_carbs,food_cholesterol,food_sodium,food_sugars) 
+							VALUES('$fname', '$serving', '$calories', '$protein', '$lipids', '$carbs','$cholesterol','$sodium','$sugar') ") or die('Add to error');  	
+		
 		$results = mysql_query("INSERT INTO foods (food_name, food_serving, food_calories, food_protein, food_lipid, food_carbs,food_cholesterol,food_sodium,food_sugars,food_type) 
-							VALUES('$fname', '$serving', '$calories', '$protein', '$lipids', '$carbs','$cholesterol','$sodium','$sugar','$type' ) ") or die(mysql_error());  
+							VALUES('$fname', '$serving', '$calories', '$protein', '$lipids', '$carbs','$cholesterol','$sodium','$sugar','$type' ) ") or die('Error Here If');
+							
+			  
+		} else {
+		 $results = mysql_query("INSERT INTO foods (food_name, food_serving, food_calories, food_protein, food_lipid, food_carbs,food_cholesterol,food_sodium,food_sugars,food_type) 
+							VALUES('$fname', '$serving', '$calories', '$protein', '$lipids', '$carbs','$cholesterol','$sodium','$sugar','$type' ) ") or die('Error Here!');
+		}
 
 		echo "<div class='added'>"."Your " .$fname. " has been added to the database"."</div>";
 		echo "<br/>";
+		printf("<script>location.href='/food/main.php'</script>");
 	}
 }
 
