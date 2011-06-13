@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 08, 2011 at 05:31 PM
+-- Generation Time: Jun 13, 2011 at 03:34 PM
 -- Server version: 5.5.9
 -- PHP Version: 5.3.5
 
@@ -38,13 +38,12 @@ CREATE TABLE `breakfast` (
   `food_protein` varchar(20) NOT NULL,
   `food_sugars` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=121 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=194 ;
 
 --
 -- Dumping data for table `breakfast`
 --
 
-INSERT INTO `breakfast` VALUES(120, '100 Grand Bar', '', '468', '71', '19', '203', '12', '3', '52');
 
 -- --------------------------------------------------------
 
@@ -65,10 +64,62 @@ CREATE TABLE `dinner` (
   `food_protein` varchar(20) NOT NULL,
   `food_sugars` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
 
 --
 -- Dumping data for table `dinner`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `exercises`
+--
+
+DROP TABLE IF EXISTS `exercises`;
+CREATE TABLE `exercises` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `exercise` varchar(20) NOT NULL,
+  `cbh` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+
+--
+-- Dumping data for table `exercises`
+--
+
+INSERT INTO `exercises` VALUES(1, 'Aerobic Low Impact', '374');
+INSERT INTO `exercises` VALUES(2, 'Aerobic High Impact', '524');
+INSERT INTO `exercises` VALUES(3, 'Archery', '262');
+INSERT INTO `exercises` VALUES(4, 'Jumping Rope', '752');
+INSERT INTO `exercises` VALUES(5, 'Dancing General', '337');
+INSERT INTO `exercises` VALUES(6, 'Paddle Boating', '299');
+INSERT INTO `exercises` VALUES(7, 'Ice Skating', '455');
+INSERT INTO `exercises` VALUES(8, 'Golf Driving Range', '225');
+INSERT INTO `exercises` VALUES(9, 'Beach Volleyball', '599');
+INSERT INTO `exercises` VALUES(10, 'Rock Climbing Up', '823');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fitness`
+--
+
+DROP TABLE IF EXISTS `fitness`;
+CREATE TABLE `fitness` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `eid` varchar(20) NOT NULL,
+  `fitness` varchar(20) NOT NULL,
+  `calories` varchar(20) NOT NULL,
+  `minutes` varchar(20) NOT NULL,
+  `miles` varchar(20) NOT NULL,
+  `notes` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
+
+--
+-- Dumping data for table `fitness`
 --
 
 
@@ -101,7 +152,7 @@ CREATE TABLE `foods` (
   KEY `food_protein` (`food_protein`),
   KEY `food_sugars` (`food_sugars`),
   KEY `food_type` (`food_type`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=26 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
 
 --
 -- Dumping data for table `foods`
@@ -130,6 +181,7 @@ INSERT INTO `foods` VALUES(22, 'Fruity Loops', 1, 210, 25, 5, 5, 0, 6, 15, 'cera
 INSERT INTO `foods` VALUES(23, 'Fish', 1, 150, 2, 6, 10, 100, 15, 1, 'meat');
 INSERT INTO `foods` VALUES(24, 'Whole Milk', 1, 246, 13, 8, 98, 24, 8, 13, 'diary');
 INSERT INTO `foods` VALUES(25, 'Buffalo Wings', 1, 210, 4, 12, 900, 130, 22, 0, 'fast food');
+INSERT INTO `foods` VALUES(26, 'Banana', 1, 120, 5, 0, 3, 0, 1, 6, 'fruit');
 
 -- --------------------------------------------------------
 
@@ -150,7 +202,7 @@ CREATE TABLE `lunch` (
   `food_protein` varchar(20) NOT NULL,
   `food_sugars` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
 
 --
 -- Dumping data for table `lunch`
@@ -176,7 +228,7 @@ CREATE TABLE `snacks` (
   `food_protein` varchar(20) NOT NULL,
   `food_sugars` varchar(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
 -- Dumping data for table `snacks`
