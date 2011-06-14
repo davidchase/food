@@ -2,6 +2,8 @@
 <html>
  <head>
  <?php include 'header.php'; ?>
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+ <title>Main Page</title>
  </head>
  
  <body> 
@@ -141,6 +143,7 @@
 						</form>
 					</div>
 		</div>
+
 </div>
  </body>
  </html>

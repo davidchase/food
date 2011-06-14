@@ -67,20 +67,20 @@ function getFoods(){
 			
 				switch ($when) {
 					case 'breakfast':
-					$query = mysql_query("INSERT INTO meal (food_name,food_serving,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars,breakfast) 
-			 						  	 VALUES('$row[1]','$s','$row[3]'*'$s','$row[4]'*'$s','$row[5]'*'$s','$row[6]'*'$s','$row[7]'*'$s','$row[8]'*'$s','$row[9]'*'$s','$add') ") or die(mysql_error());
+					$query = mysql_query("INSERT INTO meal (fid,food_name,food_serving,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars,breakfast) 
+			 						  	 VALUES('$row[0]','$row[1]','$s','$row[3]'*'$s','$row[4]'*'$s','$row[5]'*'$s','$row[6]'*'$s','$row[7]'*'$s','$row[8]'*'$s','$row[9]'*'$s','$add') ") or die(mysql_error());
 					break;
 					case 'lunch':
-					$query = mysql_query("INSERT INTO meal (food_name,food_serving,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars,lunch) 
-										  VALUES('$row[1]','$s','$row[3]'*'$s','$row[4]'*'$s','$row[5]'*'$s','$row[6]'*'$s','$row[7]'*'$s','$row[8]'*'$s','$row[9]'*'$s','$add') ") or die(mysql_error());
+					$query = mysql_query("INSERT INTO meal (fid,food_name,food_serving,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars,lunch) 
+										  VALUES('$row[0]','$row[1]','$s','$row[3]'*'$s','$row[4]'*'$s','$row[5]'*'$s','$row[6]'*'$s','$row[7]'*'$s','$row[8]'*'$s','$row[9]'*'$s','$add') ") or die(mysql_error());
 					break;
 					case 'dinner':
-					$query = mysql_query("INSERT INTO meal (food_name,food_serving,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars,dinner) 
-									 VALUES('$row[1]','$s','$row[3]'*'$s','$row[4]'*'$s','$row[5]'*'$s','$row[6]'*'$s','$row[7]'*'$s','$row[8]'*'$s','$row[9]'*'$s','$add') ") or die(mysql_error());
+					$query = mysql_query("INSERT INTO meal (fid,food_name,food_serving,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars,dinner) 
+									 VALUES('$row[0]','$row[1]','$s','$row[3]'*'$s','$row[4]'*'$s','$row[5]'*'$s','$row[6]'*'$s','$row[7]'*'$s','$row[8]'*'$s','$row[9]'*'$s','$add') ") or die(mysql_error());
 					break;
 					default:
-					$query = mysql_query("INSERT INTO meal (food_name,food_serving,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars,snacks) 
-									 VALUES('$row[1]','$s','$row[3]'*'$s','$row[4]'*'$s','$row[5]'*'$s','$row[6]'*'$s','$row[7]'*'$s','$row[8]'*'$s','$row[9]'*'$s','$add') ") or die(mysql_error());
+					$query = mysql_query("INSERT INTO meal (fid,food_name,food_serving,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars,snacks) 
+									 VALUES('$row[0]','$row[1]','$s','$row[3]'*'$s','$row[4]'*'$s','$row[5]'*'$s','$row[6]'*'$s','$row[7]'*'$s','$row[8]'*'$s','$row[9]'*'$s','$add') ") or die(mysql_error());
 				}
 	
 			}
@@ -248,17 +248,18 @@ function addFoods(){
 
 		$addTo = $_POST['addTo'];
 		
-		if($_POST['addTo'] != 'Add to Meal Time'){
-		$results = mysql_query("INSERT INTO $addTo (food_name, food_serving, food_calories, food_protein, food_lipid, food_carbs,food_cholesterol,food_sodium,food_sugars) 
-							VALUES('$fname', '$serving', '$calories', '$protein', '$lipids', '$carbs','$cholesterol','$sodium','$sugar') ") or die('Add to error');  	
-		
+		if($_POST['addTo'] != 'Add to Meal Time'){	
+			
 		$results = mysql_query("INSERT INTO foods (food_name, food_serving, food_calories, food_protein, food_lipid, food_carbs,food_cholesterol,food_sodium,food_sugars,food_type) 
-							VALUES('$fname', '$serving', '$calories', '$protein', '$lipids', '$carbs','$cholesterol','$sodium','$sugar','$type' ) ") or die('Error Here If');
+							VALUES('$fname', '$serving', '$calories', '$protein', '$lipids', '$carbs','$cholesterol','$sodium','$sugar','$type' ) ") or die('Error Is Here!');
+							
+		$results = mysql_query("INSERT INTO meal (food_name, food_serving, food_calories, food_protein, food_lipid, food_carbs,food_cholesterol,food_sodium,food_sugars,$addTo) 
+												VALUES('$fname', '$serving', '$calories', '$protein', '$lipids', '$carbs','$cholesterol','$sodium','$sugar','1') ") or die('Add to error');
 							
 			  
 		} else {
 		 $results = mysql_query("INSERT INTO foods (food_name, food_serving, food_calories, food_protein, food_lipid, food_carbs,food_cholesterol,food_sodium,food_sugars,food_type) 
-							VALUES('$fname', '$serving', '$calories', '$protein', '$lipids', '$carbs','$cholesterol','$sodium','$sugar','$type' ) ") or die('Error Here!');
+							VALUES('$fname', '$serving', '$calories', '$protein', '$lipids', '$carbs','$cholesterol','$sodium','$sugar','$type' ) ") or die('Or Maybe Here');
 		}
 
 		echo "<div class='added'>"."Your " .$fname. " has been added to the database"."</div>";
