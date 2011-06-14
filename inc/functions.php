@@ -17,8 +17,6 @@
 <?php
 
 function getFoods(){
-		global $term;
-		global $row;
 
 		
 		$form_query = "SELECT DISTINCT food_name FROM foods ORDER BY food_ID ASC";
@@ -66,9 +64,48 @@ function getFoods(){
 			$s = $_GET['s'];
 			$query =  mysql_query("SELECT * FROM foods WHERE food_ID ='$add'") or die(mysql_error()); 
 			$row = mysql_fetch_array( $query );
-			$query = mysql_query("INSERT INTO $when (id,food_name,food_serving,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars) 
-								  VALUES('$add','$row[1]','$row[2]','$row[3]'*'$s','$row[4]'*'$s','$row[5]'*'$s','$row[6]'*'$s','$row[7]'*'$s','$row[8]'*'$s','$row[9]'*'$s') ") or die(mysql_error());
-		}
+			
+				switch ($when) {
+					case 'breakfast':
+					$query = mysql_query("INSERT INTO meal (food_name,food_serving,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars,breakfast) 
+			 						  	 VALUES('$row[1]','$s','$row[3]'*'$s','$row[4]'*'$s','$row[5]'*'$s','$row[6]'*'$s','$row[7]'*'$s','$row[8]'*'$s','$row[9]'*'$s','$add') ") or die(mysql_error());
+					break;
+					case 'lunch':
+					$query = mysql_query("INSERT INTO meal (food_name,food_serving,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars,lunch) 
+										  VALUES('$row[1]','$s','$row[3]'*'$s','$row[4]'*'$s','$row[5]'*'$s','$row[6]'*'$s','$row[7]'*'$s','$row[8]'*'$s','$row[9]'*'$s','$add') ") or die(mysql_error());
+					break;
+					case 'dinner':
+					$query = mysql_query("INSERT INTO meal (food_name,food_serving,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars,dinner) 
+									 VALUES('$row[1]','$s','$row[3]'*'$s','$row[4]'*'$s','$row[5]'*'$s','$row[6]'*'$s','$row[7]'*'$s','$row[8]'*'$s','$row[9]'*'$s','$add') ") or die(mysql_error());
+					break;
+					default:
+					$query = mysql_query("INSERT INTO meal (food_name,food_serving,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars,snacks) 
+									 VALUES('$row[1]','$s','$row[3]'*'$s','$row[4]'*'$s','$row[5]'*'$s','$row[6]'*'$s','$row[7]'*'$s','$row[8]'*'$s','$row[9]'*'$s','$add') ") or die(mysql_error());
+				}
+	
+			}
+				//Quick Add 
+			if(!empty($_REQUEST['breakfast'])) {
+					$breakfastCals = $_POST['breakfast_calories'];
+					$results =  mysql_query("INSERT INTO meal (food_name,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars,breakfast) VALUES ('Quick Calories','$breakfastCals','0','0','0','0','0','0','1')");
+						}
+			
+			if(!empty($_REQUEST['lunch'])) {
+					
+					$lunchCals = $_POST['lunch_calories'];
+					$results =  mysql_query("INSERT INTO meal (food_name,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars,lunch) VALUES ('Quick Calories','$lunchCals','0','0','0','0','0','0','1')");
+					}
+			if(!empty($_REQUEST['dinner'])) {
+					
+					$dinnerCals = $_POST['dinner_calories'];
+					$results =  mysql_query("INSERT INTO meal (food_name,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars,dinner) VALUES ('Quick Calories','$dinnerCals','0','0','0','0','0','0','1')");
+				}
+			if(!empty($_REQUEST['snacks'])) {
+				
+					$snacksCals = $_POST['snacks_calories'];
+					$results =  mysql_query("INSERT INTO meal (food_name,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars,snacks) VALUES ('Quick Calories','$snacksCals','0','0','0','0','0','0','1')");
+				}
+			
 					
 }
 
@@ -80,25 +117,20 @@ function getFoods(){
  *
  **/
 
-function breakfast(){
-			
-					if(isset($_POST['quickAdd'])) {
-						$quickCals = $_POST['breakfast_calories'];
-						$results =  mysql_query("INSERT INTO breakfast (food_name,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars) VALUES ('Quick Calories','$quickCals','0','0','0','0','0','0')");
-					}
-			
-			
+function meal($ate){
+		
+					
 			if(isset($_GET['remove'])) {
 					 $remove = $_GET['remove'];
-					if($_GET['when'] == 'breakfast') {
-					  $query =  mysql_query("DELETE FROM breakfast WHERE id='$remove'");
+					if($_GET['when'] == $ate) {
+					  $query =  mysql_query("DELETE FROM meal WHERE id='$remove'");
 					}
 				}
 
-			$query = mysql_query("SELECT  * FROM breakfast") or die(mysql_error());  
+			$query = mysql_query("SELECT  * FROM meal WHERE $ate > 0") or die(mysql_error());  
 		  	$totals = mysql_query("SELECT SUM(food_calories) AS CalorieTotal,SUM(food_carbs) AS CarbTotal, SUM(food_lipid) AS FatTotal,SUM(food_sodium) 
-					  AS SodiumTotal,SUM(food_cholesterol) AS CholesterolTotal,SUM(food_protein) AS ProteinTotal,SUM(food_sugars) AS SugarTotal FROM breakfast") or die(mysql_error());  
-		echo "Breakfast";	
+					  AS SodiumTotal,SUM(food_cholesterol) AS CholesterolTotal,SUM(food_protein) AS ProteinTotal,SUM(food_sugars) AS SugarTotal FROM meal WHERE $ate > 0") or die(mysql_error());  
+		
 		echo "<table border='1' id='table'>";
 		echo "<tr> <th>Name</th> 
 				   <th>Calories</th>
@@ -119,7 +151,7 @@ function breakfast(){
 			echo "<td>".$row['food_cholesterol']. "</td>";
 			echo "<td>".$row['food_protein']. "</td>";
 			echo "<td>".$row['food_sugars']. "</td>";
-			echo "<td><a href=".$_SERVER['PHP_SELF']."?remove=".$row['id']."&when=breakfast".">X</a></td>"; 
+			echo "<td><a href=".$_SERVER['PHP_SELF']."?remove=".$row['id']."&when=$ate".">X</a></td>"; 
 			echo "</tr>";	
 	} 
 	
@@ -142,186 +174,11 @@ function breakfast(){
 		
 	
 }
-function lunch(){
-	
-			if(isset($_POST['lunch'])) {
-				$quickCals = $_POST['lunch_calories'];
-				$results =  mysql_query("INSERT INTO lunch (food_name,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars) VALUES ('Quick Calories','$quickCals','0','0','0','0','0','0')");
-			}
-	
-			if(isset($_GET['remove'])) {
-					 $remove = $_GET['remove'];
-					if($_GET['when'] == 'lunch') {
-					  $query =  mysql_query("DELETE FROM lunch WHERE id='$remove'");
-					}
-				}
-			
-		  $query = mysql_query("SELECT * FROM lunch") or die(mysql_error());  
-		  $totals = mysql_query("SELECT SUM(food_calories) AS CalorieTotal,SUM(food_carbs) AS CarbTotal, SUM(food_lipid) AS FatTotal,SUM(food_sodium) AS SodiumTotal,SUM(food_cholesterol) AS CholesterolTotal,SUM(food_protein) AS ProteinTotal,SUM(food_sugars) AS SugarTotal FROM lunch") or die(mysql_error());  
-		
-		echo "Lunch";
-		echo "<table border='1' id='table'>";
-		echo "<tr> <th>Name</th> 
-				   <th>Calories</th>
-				   <th>Carbs</th>
-					<th>Fats</th>
-					<th>Sodium</th>
-					<th>Cholesterol</th>
-					<th>Protein</th>
-					<th>Sugars</th>
-					<th>Delete</th></tr>";
-		while($row = mysql_fetch_array( $query )) {
-			echo "<tr><td>"; 
-			echo $row['food_name'];
-			echo "</td><td>"; 
-			echo $row['food_calories'];
-			echo "</td>"; 
-			echo "<td>".$row['food_carbs']. "</td>";
-			echo "<td>".$row['food_lipid']. "</td>";
-			echo "<td>".$row['food_sodium']. "</td>";
-			echo "<td>".$row['food_cholesterol']. "</td>";
-			echo "<td>".$row['food_protein']. "</td>";
-			echo "<td>".$row['food_sugars']. "</td>";
-			echo "<td><a href=".$_SERVER['PHP_SELF']."?remove=".$row[0]."&when=lunch".">X</a></td>"; 
-			echo "</tr>";
-	} 
-		while($row = mysql_fetch_array( $totals )) {
-			echo "<td><strong>Totals:</strong></td>";
-			echo "<td>".$row['CalorieTotal']. "</td>";
-			echo "<td>".$row['CarbTotal']. "</td>";
-			echo "<td>".$row['FatTotal']. "</td>";
-			echo "<td>".$row['SodiumTotal']. "</td>";
-			echo "<td>".$row['CholesterolTotal']. "</td>";
-			echo "<td>".$row['ProteinTotal']. "</td>";
-			echo "<td>".$row['SugarTotal']. "</td>";
-
-		}
-		echo "</table>"; 
-
-	
-}
-function dinner(){
-		
-			if(isset($_POST['dinner'])) {
-				$quickCals = $_POST['dinner_calories'];
-				$results =  mysql_query("INSERT INTO dinner (food_name,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars) VALUES ('Quick Calories','$quickCals','0','0','0','0','0','0')");
-			}
-	
-			if(isset($_GET['remove'])) {
-					 $remove = $_GET['remove'];
-					if($_GET['when'] == 'dinner') {
-					  $query =  mysql_query("DELETE FROM dinner WHERE id='$remove'");
-					}
-				}
-			
-			$query = mysql_query("SELECT * FROM dinner") or die(mysql_error());  
-		  $totals = mysql_query("SELECT SUM(food_calories) AS CalorieTotal,SUM(food_carbs) AS CarbTotal, SUM(food_lipid) AS FatTotal,SUM(food_sodium) AS SodiumTotal,SUM(food_cholesterol) AS CholesterolTotal,SUM(food_protein) AS ProteinTotal,SUM(food_sugars) AS SugarTotal FROM dinner") or die(mysql_error());  
-		
-		echo "Dinner";
-		echo "<table border='1' id='table'>";
-		echo "<tr> <th>Name</th> 
-				   <th>Calories</th>
-				   <th>Carbs</th>
-					<th>Fats</th>
-					<th>Sodium</th>
-					<th>Cholesterol</th>
-					<th>Protein</th>
-					<th>Sugars</th>
-					<th>Delete</th></tr>";
-		while($row = mysql_fetch_array( $query )) {
-			echo "<tr><td>"; 
-			echo $row['food_name'];
-			echo "</td><td>"; 
-			echo $row['food_calories'];
-			echo "</td>"; 
-			echo "<td>".$row['food_carbs']. "</td>";
-			echo "<td>".$row['food_lipid']. "</td>";
-			echo "<td>".$row['food_sodium']. "</td>";
-			echo "<td>".$row['food_cholesterol']. "</td>";
-			echo "<td>".$row['food_protein']. "</td>";
-			echo "<td>".$row['food_sugars']. "</td>";
-			echo "<td><a href=".$_SERVER['PHP_SELF']."?remove=".$row[0]."&when=dinner".">X</a></td>"; 
-			echo "</tr>";
-	} 
-		while($row = mysql_fetch_array( $totals )) {
-			echo "<td><strong>Totals:</strong></td>";
-			echo "<td>".$row['CalorieTotal']. "</td>";
-			echo "<td>".$row['CarbTotal']. "</td>";
-			echo "<td>".$row['FatTotal']. "</td>";
-			echo "<td>".$row['SodiumTotal']. "</td>";
-			echo "<td>".$row['CholesterolTotal']. "</td>";
-			echo "<td>".$row['ProteinTotal']. "</td>";
-			echo "<td>".$row['SugarTotal']. "</td>";
-
-		}
-		echo "</table>"; 
-
-	
-}
-function snack(){
-			if(isset($_POST['snacks'])) {
-				$quickCals = $_POST['snacks_calories'];
-				$results =  mysql_query("INSERT INTO snacks (food_name,food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars) VALUES ('Quick Calories','$quickCals','0','0','0','0','0','0')");
-			}
-			
-			if(isset($_GET['remove'])) {
-					 $remove = $_GET['remove'];
-					if($_GET['when'] == 'snack') {
-					  $query =  mysql_query("DELETE FROM snacks WHERE id='$remove'");
-					}
-				}
-			
-		  $query = mysql_query("SELECT * FROM snacks") or die(mysql_error());  
-		  $totals = mysql_query("SELECT SUM(food_calories) AS CalorieTotal,SUM(food_carbs) AS CarbTotal, SUM(food_lipid) AS FatTotal,SUM(food_sodium) AS SodiumTotal,SUM(food_cholesterol) AS CholesterolTotal,SUM(food_protein) AS ProteinTotal,SUM(food_sugars) AS SugarTotal FROM snacks") or die(mysql_error());  
-		
-		echo "Snacks";
-		echo "<table border='1' id='table'>";
-		echo "<tr> <th>Name</th> 
-				   <th>Calories</th>
-				   <th>Carbs</th>
-					<th>Fats</th>
-					<th>Sodium</th>
-					<th>Cholesterol</th>
-					<th>Protein</th>
-					<th>Sugars</th>
-					<th>Delete</th></tr>";
-		while($row = mysql_fetch_array( $query )) {
-			echo "<tr><td>"; 
-			echo $row['food_name'];
-			echo "</td><td>"; 
-			echo $row['food_calories'];
-			echo "</td>"; 
-			echo "<td>".$row['food_carbs']. "</td>";
-			echo "<td>".$row['food_lipid']. "</td>";
-			echo "<td>".$row['food_sodium']. "</td>";
-			echo "<td>".$row['food_cholesterol']. "</td>";
-			echo "<td>".$row['food_protein']. "</td>";
-			echo "<td>".$row['food_sugars']. "</td>";
-			echo "<td><a href=".$_SERVER['PHP_SELF']."?remove=".$row[0]."&when=snack".">X</a></td>"; 
-			echo "</tr>";
-	} 
-		while($row = mysql_fetch_array( $totals )) {
-			echo "<td><strong>Totals:</strong></td>";
-			echo "<td>".$row['CalorieTotal']. "</td>";
-			echo "<td>".$row['CarbTotal']. "</td>";
-			echo "<td>".$row['FatTotal']. "</td>";
-			echo "<td>".$row['SodiumTotal']. "</td>";
-			echo "<td>".$row['CholesterolTotal']. "</td>";
-			echo "<td>".$row['ProteinTotal']. "</td>";
-			echo "<td>".$row['SugarTotal']. "</td>";
-
-		}
-		echo "</table>"; 
-
-	
-}
 
 function foodtotals(){
-	 $foodtotals = mysql_query("SELECT SUM(food_calories) AS CalorieTotal,SUM(food_carbs) AS CarbTotal, SUM(food_lipid) AS FatTotal,SUM(food_sodium) AS SodiumTotal,SUM(food_cholesterol) AS CholesterolTotal,SUM(food_protein) AS ProteinTotal,SUM(food_sugars) AS SugarTotal
-	 						FROM ((SELECT food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars FROM breakfast) 
-							UNION ALL(SELECT food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars FROM lunch)
-							UNION ALL(SELECT food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars FROM dinner)
-							UNION ALL(SELECT food_calories,food_carbs,food_lipid,food_sodium,food_cholesterol,food_protein,food_sugars FROM snacks)) AS TOTAL ") or die(mysql_error());
+							
+	$foodtotals = mysql_query("SELECT SUM(food_calories) AS CalorieTotal,SUM(food_carbs) AS CarbTotal, SUM(food_lipid) AS FatTotal,SUM(food_sodium) 
+													     AS SodiumTotal,SUM(food_cholesterol) AS CholesterolTotal,SUM(food_protein) AS ProteinTotal,SUM(food_sugars) AS SugarTotal FROM meal") or die(mysql_error());
 	echo "Daily Totals";
 	echo "<table border='1' id='table'>";
 	echo "<tr> <th></th> 

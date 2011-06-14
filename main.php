@@ -48,23 +48,23 @@
 		
 		<div id="meal">
 		
-			<div class="breakfast">
-		<?php breakfast();?><a class="quickAdd" href="#breakfast">Quick Add</a>
+			<div class="breakfast">Breakfast
+		<?php meal(breakfast);?><a class="quickAdd" href="#breakfast">Quick Add</a>
 		
 			</div>
 			
-			<div class="lunch">
-		<?php lunch();?><a class="quickAdd" href="#lunch">Quick Add</a>
+			<div class="lunch">Lunch
+		<?php meal(lunch);?><a class="quickAdd" href="#lunch">Quick Add</a>
 		
 			</div>
 		
-			<div class="dinner">
-		<?php dinner();?><a class="quickAdd" href="#dinner">Quick Add</a>
+			<div class="dinner">Dinner
+		<?php meal(dinner);?><a class="quickAdd" href="#dinner">Quick Add</a>
 		
 			</div>
 		
-			<div class="snacks">
-		<?php snack();?><a class="quickAdd" href="#snacks">Quick Add</a>
+			<div class="snacks">Snacks
+		<?php meal(snacks);?><a class="quickAdd" href="#snacks">Quick Add</a>
 		
 			</div>
 		
@@ -114,28 +114,28 @@
 		<div class="formHidden">
 			<div id="breakfast">
 	
-				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" name="quickAdd">
+				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
 				 <label for="quick_calories">Quick Calories</label> <input type="text" name="breakfast_calories" value="" class="quick_calories">
-				<input type="Submit" name="quickAdd" value="Submit"  class="quickSubmit">
+				<input type="Submit" name="breakfast" value="Submit"  class="quickSubmit">
 				</form>
 			</div>
 			<div id="lunch">
 	
-				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" name="quickAdd">
+				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" >
 				 <label for="quick_calories">Quick Calories</label> <input type="text" name="lunch_calories" value="" class="quick_calories">
 				<input type="Submit" name="lunch" value="Submit"  class="quickSubmit">
 				</form>
 			</div>
 				<div id="dinner">
 
-					<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" name="quickAdd">
+					<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" >
 					 <label for="quick_calories">Quick Calories</label> <input type="text" name="dinner_calories" value="" class="quick_calories">
 					<input type="Submit" name="dinner" value="Submit" class="quickSubmit">
 					</form>
 				</div>
 					<div id="snacks">
 
-						<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" name="quickAdd">
+						<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" >
 						 <label for="quick_calories">Quick Calories</label> <input type="text" name="snacks_calories" value="" class="quick_calories">
 						<input type="Submit" name="snacks" value="Submit" class="quickSubmit">
 						</form>
